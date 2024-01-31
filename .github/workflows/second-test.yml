@@ -1,0 +1,10 @@
+name: Second Test
+on: workflow_dispatch
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Greetings
+        run: echo "Hey, How are you?"
+      - name: Say GoodBye
+        run: echo "Nice to see you Man"
