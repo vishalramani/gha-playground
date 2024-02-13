@@ -17,3 +17,9 @@ jobs:
       - name: Print output
         run: |
           echo 'console.log("${{ github.event.inputs.flavour-store }}".toLowerCase())'
+      - id: string
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.inputs.flavour-store }}
+      - id: step2
+        run: echo ${{ steps.string.outputs.lowercase }}
