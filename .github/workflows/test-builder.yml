@@ -1,0 +1,26 @@
+name: Test Builder
+on:
+  workflow_dispatch:
+    inputs:
+      flavour-store:
+        description: 'Choose store'
+        required: true
+        type: choice
+        options:
+          - Google
+          - Amazon
+          - Huawei
+jobs:
+  login-ecr:
+    runs-on: ubuntu-latest
+    steps:
+      - id: string
+        uses: ASzc/change-string-case-action@v1
+        with:
+          string: ${{ github.repository }}
+      - run: |
+          echo "${{ github.event.inputs.flavour-store.lowercase }}"
+      - name: Print output
+        run: |
+          echo "${{ github.event.inputs.flavour-store }}"
+          echo "${{ github.event.inputs.flavour-store.lowercase }}"
