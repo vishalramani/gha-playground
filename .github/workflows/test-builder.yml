@@ -16,4 +16,4 @@ jobs:
     steps:
       - name: Print output
         run: |
-          repo=$(echo 'console.log("${{ github.event.inputs.flavour-store }}".toLowerCase())' | node -)
+          echo 'console.log("${{ github.event.inputs.flavour-store }}".toLowerCase())'
