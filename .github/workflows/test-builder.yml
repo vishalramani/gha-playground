@@ -14,13 +14,6 @@ jobs:
   login-ecr:
     runs-on: ubuntu-latest
     steps:
-      - id: string
-        uses: ASzc/change-string-case-action@v1
-        with:
-          string: ${{ github.repository }}
-      - run: |
-          echo "${{ github.event.inputs.flavour-store.lowercase }}"
       - name: Print output
         run: |
-          echo "${{ github.event.inputs.flavour-store }}"
-          echo "${{ github.event.inputs.flavour-store.lowercase }}"
+          repo=$(echo 'console.log("${{ github.event.inputs.flavour-store }}".toLowerCase())' | node -)
