@@ -25,4 +25,4 @@ jobs:
         run: echo ${{ steps.string.outputs.lowercase }}
       - name: Test with Bash
         shell: bash
-        run: echo "THIS IS MY DATA" | tr '[:upper:]' '[:lower:]'
+        run: echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
