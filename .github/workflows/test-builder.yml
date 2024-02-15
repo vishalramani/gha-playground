@@ -26,6 +26,6 @@ jobs:
       - name: Test with Bash
         shell: bash
         run: |
-          flavourLower = ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
+          flavourLower = echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
           echo flavourLower
           bash scripts/bundle.sh {"${flavourLower}Debug"=true}
