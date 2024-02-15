@@ -25,4 +25,6 @@ jobs:
         run: echo ${{ steps.string.outputs.lowercase }}
       - name: Test with Bash
         shell: bash
-        run: echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
+        run: |
+          echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
+          bash {"echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'Debug"=true}
