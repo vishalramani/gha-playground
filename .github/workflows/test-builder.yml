@@ -27,9 +27,9 @@ jobs:
           string: ${{ github.event.inputs.flavour-store }}
       - id: step2
         run: echo ${{ steps.string.outputs.lowercase }}
-      - name: Test with Bash
-        shell: bash
-        run: |
-          flavourLower = echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
-          echo flavourLower
-          bash scripts/bundle.sh {"${flavourLower}Debug"=true}
+      # - name: Test with Bash
+      #   shell: bash
+      #   run: |
+      #     flavourLower = echo ${{ steps.string.outputs.lowercase }} | tr '[:upper:]' '[:lower:]'
+      #     echo flavourLower
+      #     bash scripts/bundle.sh {"${flavourLower}Debug"=true}
