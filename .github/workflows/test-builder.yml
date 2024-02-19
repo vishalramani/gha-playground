@@ -10,6 +10,10 @@ on:
           - Google
           - Amazon
           - Huawei
+  workflow_run:
+    workflows: ["Second Test"]
+    types:
+      - completed
 jobs:
   login-ecr:
     runs-on: ubuntu-latest
