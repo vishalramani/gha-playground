@@ -1,5 +1,10 @@
 name: Second Test
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["First Workflow"]
+    types:
+      - completed
 jobs:
   init:
     runs-on: ubuntu-latest
