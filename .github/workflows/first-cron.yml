@@ -65,8 +65,12 @@ on:
         options:
           - 'true'
           - 'false'
+outputs:
+  variant_apks_string:
+    description: Variant APKs String
+    value: ${{ steps.variant-apks.outputs.variant_apks }}
 
-     # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "cron"
   cron:
@@ -82,5 +86,9 @@ jobs:
         with:
           string: ${{ github.event.inputs.flavour-store }}
       - name: Run a one-line script
+        id: variant-apks
         run: |
-          echo { ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ github.event.inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ github.event.inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ github.event.inputs.process-debug }} }
+          echo "variant_apks={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ github.event.inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ github.event.inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ github.event.inputs.process-debug }} }" >> $GITHUB_OUTPUT
+
+      - name: Print the command
+        run: echo "$variant_apks_string"
