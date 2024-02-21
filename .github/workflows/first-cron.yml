@@ -83,4 +83,4 @@ jobs:
           string: ${{ github.event.inputs.flavour-store }}
       - name: Run a one-line script
         run: |
-          echo { ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }} }
+          echo { ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }} }
