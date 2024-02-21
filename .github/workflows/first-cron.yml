@@ -7,6 +7,64 @@ on:
   # schedule:
     # - cron: "*/5 * * * *"
     # - cron: "*/5 * ? * *"
+    inputs:
+      flavour-store:
+        description: 'Choose store'
+        required: true
+        type: choice
+        default: 'Google'
+        options:
+          - Google
+          - Amazon
+          - Huawei
+      process-production:
+        description: 'Process prod?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
+      process-beta:
+        description: 'Process beta?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
+      process-production-debug:
+        description: 'Process production debug?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
+      process-manual-release:
+        description: 'Process manual  Release?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
+      process-debug:
+        description: 'Process debug?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
+      google-play-upload:
+        description: 'Is Google Play upload required?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - 'true'
+          - 'false'
 
      # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,4 +77,5 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: |
+          echo { ${{ toJSON(${{ github.event.inputs.flavour-store }}) }} }
