@@ -76,6 +76,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
+      - name: Convert selected Store to lowercase
+        id: flavour-lower-case
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.inputs.flavour-store }}
       - name: Run a one-line script
         run: |
-          echo { ${{ toJSON(github.event.inputs.flavour-store, github.event.inputs.process-production) }} }
+          echo { ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }} }
