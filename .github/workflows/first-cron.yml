@@ -90,8 +90,8 @@ jobs:
       - name: Run a one-line script
         id: variant-apks
         run: |
-          echo "{ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ github.event.inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ github.event.inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ github.event.inputs.process-debug }} }" >> $GITHUB_OUTPUT
+          echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ github.event.inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ github.event.inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ github.event.inputs.process-debug }} }" >> $GITHUB_OUTPUT
 
       - name: Print the command
-        run: echo "${{ steps.variant-apks.outputs }}"
+        run: echo "${{ steps.variant-apks.outputs.variant_apk }}"
 
