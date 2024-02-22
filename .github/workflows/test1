@@ -1,4 +1,4 @@
-name: First Cron Job
+name: Test 1
 
        # Controls when the workflow will run
 on:
