@@ -1,7 +1,6 @@
 name: Test 1
 run-name: ${{ github.event.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }}
 on:
-  # Triggers the workflow every 5 minutes
   workflow_dispatch:
     inputs:
       flavour-store:
@@ -64,7 +63,7 @@ on:
 
   schedule:
     # - cron: "*/5 * * * *"
-    - cron: "*/5 * ? * *"
+    - cron: "*/2 * ? * *"
 
 run-name: if(${{ github.event.type }} === 'schedule') Nightly else 
 
