@@ -1,5 +1,5 @@
 name: Test 1
-run-name: ${{ github.event.type == 'Scheduled' && 'NIghtly Run' || 'Manual Run' }}
+run-name: ${{ github.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }}
 on:
   workflow_dispatch:
     inputs:
