@@ -1,6 +1,5 @@
 name: Test 1
-
-       # Controls when the workflow will run
+run-name: ${{ github.event.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }}
 on:
   # Triggers the workflow every 5 minutes
   workflow_dispatch:
@@ -67,7 +66,7 @@ on:
     # - cron: "*/5 * * * *"
     - cron: "*/5 * ? * *"
 
-run-name: ${{ github.event.type }}
+run-name: if(${{ github.event.type }} === 'schedule') Nightly else 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
