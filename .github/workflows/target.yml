@@ -2,6 +2,15 @@ name: Target WF
 on: 
   workflow_dispatch:
   workflow_call:
+    inputs:
+      platform:
+        description: "Platform name"
+        type: string
+        required: true
+      deviceNames:
+        description: "Device names"
+        type: string
+        required: true
   workflow_run:
     workflows: ["First Cron Job"]
     types:
@@ -15,3 +24,9 @@ jobs:
 
       - name: Print Goodbye
         run: echo "Done- Bye!!"
+
+      - name: Print Platform
+        run: echo ${{ inputs.platform }}
+
+      - name: Print Device names
+        run: echo ${{ inputs.deviceNames }}
