@@ -1,15 +1,28 @@
 name: Source
-
+run-name: ${{ github.event_name == 'workflow_dispatch' && 'APK Builder Manual Run' || 'APK Builder Nightly Run' }}
 on:
-  - push
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 1 * * 2-6'
+
 jobs:
-  preflight-job:
-    name: First Step
-    runs-on: ubuntu-latest
-    steps:
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.PAT }}
-          event-type: my-event
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "test": "test message"}'
+  ui-automator-amazon:
+    name: UI Automator Amazon
+    uses: ./.github/workflows/target.yml
+    with:
+      platform: Amazon
+      deviceNames: 'JP'
+# on:
+#   - push
+# jobs:
+#   preflight-job:
+#     name: First Step
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Repository Dispatch
+#         uses: peter-evans/repository-dispatch@v1
+#         with:
+#           token: ${{ secrets.PAT }}
+#           event-type: my-event
+#           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "test": "test message"}'
