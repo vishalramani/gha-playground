@@ -1,12 +1,13 @@
-name: Source
+name: APK Builder Manual / Nightly
+run-name: ${{ github.event_name == 'workflow_dispatch' && 'APK Builder Manual Run' || 'APK Builder Nightly Run' }}
 on:
   workflow_dispatch:
 
+  schedule:
+    - cron: '0 1 * * 2-6'
+
 jobs:
-  ui-automator-amazon:
-    name: UI Automator Amazon
+  apk-builder-mobile:
+    name: APK Builder Mobile
     uses: ./.github/workflows/target.yml
     secrets: inherit
-    with:
-      platform: Amazon
-      deviceNames: 'JP'
