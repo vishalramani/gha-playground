@@ -1,7 +1,9 @@
 name: Target
 on:
   workflow_call:
-  
+    inputs:
+      platform: ${{ github.event.platform }}
+      deviceNames: ${{ github.event.deviceNames }}
 jobs:
   myEvent:
     runs-on: ubuntu-latest
