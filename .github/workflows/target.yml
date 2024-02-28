@@ -1,12 +1,17 @@
-name: Target
-on:
+name: First Workflow
+on: 
+  workflow_dispatch:
   workflow_call:
-    inputs:
-      platform: ${{ github.event.platform }}
-      deviceNames: ${{ github.event.deviceNames }}
+  workflow_run:
+    workflows: ["First Cron Job"]
+    types:
+      - completed
 jobs:
-  myEvent:
+  first-job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.platform }}
-      - run: echo ${{ github.event.deviceNames }}
+      - name: Print Greeting
+        run: echo "Hello World this ran from first CRON GHA"
+
+      - name: Print Goodbye
+        run: echo "Done- Bye!!"
