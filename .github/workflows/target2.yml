@@ -1,0 +1,17 @@
+name: Target 2 WF
+on: 
+  workflow_dispatch:
+  workflow_call:
+  workflow_run:
+    workflows: ["Secnd Cron Job"]
+    types:
+      - completed
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Greeting
+        run: echo "Hello World this ran from first CRON GHA"
+
+      - name: Print Goodbye
+        run: echo "Done- Bye!!"
