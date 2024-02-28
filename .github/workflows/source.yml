@@ -10,8 +10,14 @@ jobs:
     name: First WF
     uses: ./.github/workflows/target.yml
     secrets: inherit
+      with:
+        platform: Amazon
+        deviceNames: 'JP'
 
   second-wf:
     name: second WF
     uses: ./.github/workflows/target2.yml
     secrets: inherit
+      with:
+        platform: Google
+        deviceNames: 'US'
