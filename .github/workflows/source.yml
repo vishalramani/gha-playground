@@ -1,10 +1,6 @@
 name: Source
-run-name: ${{ github.event_name == 'workflow_dispatch' && 'APK Builder Manual Run' || 'APK Builder Nightly Run' }}
 on:
   workflow_dispatch:
-
-  schedule:
-    - cron: '0 1 * * 2-6'
 
 jobs:
   ui-automator-amazon:
