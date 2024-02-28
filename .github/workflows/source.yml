@@ -6,7 +6,12 @@ on:
     - cron: '0 1 * * 2-6'
 
 jobs:
-  apk-builder-mobile:
-    name: APK Builder Mobile
+  first-wf:
+    name: First WF
     uses: ./.github/workflows/target.yml
+    secrets: inherit
+
+  second-wf:
+    name: second WF
+    uses: ./.github/workflows/target2.yml
     secrets: inherit
