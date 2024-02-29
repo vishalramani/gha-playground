@@ -1,0 +1,81 @@
+name: Test 3
+ 
+on:
+  workflow_dispatch:
+    inputs:
+      flavour-store:
+        description: 'Choose store'
+        required: true
+        type: choice
+        default: 'Google'
+        options:
+          - Google
+          - Amazon
+          - Huawei
+      process-production:
+        description: 'Process prod?'
+        required: true
+        type: choice
+        default: 'true'
+        options:
+          - true
+          - false
+      process-beta:
+        description: 'Process beta?'
+        required: true
+        type: choice
+        default: 'true'
+        options:
+          - true
+          - false
+      process-production-debug:
+        description: 'Process production debug?'
+        required: true
+        type: choice
+        default: 'true'
+        options:
+          - true
+          - false
+      process-manual-release:
+        description: 'Process manual  Release?'
+        required: true
+        type: choice
+        default: 'true'
+        options:
+          - true
+          - false
+      process-debug:
+        description: 'Process debug?'
+        required: true
+        type: choice
+        default: 'true'
+        options:
+          - true
+          - false
+      google-play-upload:
+        description: 'Is Google Play upload required?'
+        required: true
+        type: choice
+        default: 'false'
+        options:
+          - true
+          - false
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+ 
+    - name: Building variants output for APK bundle (Manual Run)
+        if: github.event_name == 'workflow_dispatch'
+        id: variant-apks
+        run: |
+          echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }} }" >> $GITHUB_OUTPUT
+
+      - name: Create apk from bundle (Manual Run)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo ${{ steps.variant-apks.outputs.variant_apk }}
