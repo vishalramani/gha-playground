@@ -18,48 +18,48 @@ on:
         type: choice
         default: 'true'
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       process-beta:
         description: 'Process beta?'
         required: true
         type: choice
         default: 'true'
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       process-production-debug:
         description: 'Process production debug?'
         required: true
         type: choice
         default: 'true'
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       process-manual-release:
         description: 'Process manual  Release?'
         required: true
         type: choice
         default: 'true'
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       process-debug:
         description: 'Process debug?'
         required: true
         type: choice
         default: 'true'
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
       google-play-upload:
         description: 'Is Google Play upload required?'
         required: true
         type: choice
         default: 'false'
         options:
-          - true
-          - false
+          - 'true'
+          - 'false'
  
 jobs:
   build:
