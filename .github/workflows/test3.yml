@@ -69,18 +69,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Convert selected Store to lowercase
+      id: flavour-lower-case
+      uses: ASzc/change-string-case-action@v6
+      with:
+        string: ${{ inputs.flavour-store }}
+
     - name: Defining a new Environment Variable
       run: |                          
         variant_apk=" \n"
-         if [ ${{ inputs.process-production }} == 'true' ]; then
+         if [ ${{ inputs.process-production }} == true ]; then
            echo ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},
-         elif [ ${{ inputs.process-beta }} == 'true' ]; then
+         elif [ ${{ inputs.process-beta }} == true ]; then
            echo ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},
-         elif [ ${{ inputs.process-production-debug }} == 'true' ]; then
+         elif [ ${{ inputs.process-production-debug }} == true ]; then
            echo ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},
-         elif [ ${{ inputs.process-manual-release }} == 'true' ]; then
+         elif [ ${{ inputs.process-manual-release }} == true ]; then
            echo ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},
-         elif [ ${{ inputs.process-debug }} == 'true' ]; then
+         elif [ ${{ inputs.process-debug }} == true ]; then
            echo ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},
          fi
 
