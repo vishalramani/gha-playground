@@ -77,28 +77,29 @@ jobs:
 
     - name: Defining a new Environment Variable
       run: |
-        echo "{"
+        echo 'variant_apk<<EOF' >> $GITHUB_ENV
+        echo "{" >> $GITHUB_ENV
          if [ ${{ inputs.process-production }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},"
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}," >> $GITHUB_ENV
          fi
          if [ ${{ inputs.process-beta }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},"
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}," >> $GITHUB_ENV
          fi
          if [ ${{ inputs.process-production-debug }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},"
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}," >> $GITHUB_ENV
          fi
          if [ ${{ inputs.process-manual-release }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},"
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}," >> $GITHUB_ENV
          fi
          if [ ${{ inputs.process-debug }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}"
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}" >> $GITHUB_ENV
          fi
-        echo "}"
-        >> $GITHUB_OUTPUT
+        echo "}" >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
           
     - name: Using the previously defined environment variable
       run: |
-        echo ${{ steps.variant-apks.outputs }}
+        echo ${{ steps.variant-apks.outputs.variant_apk }}
     # - name: Building variants output for APK bundle (Manual Run)
     #   if: github.event_name == 'workflow_dispatch'
     #   id: variant-apks
