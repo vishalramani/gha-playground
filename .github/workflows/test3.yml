@@ -76,28 +76,27 @@ jobs:
         string: ${{ inputs.flavour-store }}
 
     - name: Defining a new Environment Variable
-      run: |                          
-        variant_apk=" \n"
+      run: |
+        variant_apk_cmd=$(cat << EOF
          if [ ${{ inputs.process-production }} == true ]; then
-           echo ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},
+           '${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},'
          elif [ ${{ inputs.process-beta }} == true ]; then
-           echo ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},
+           '${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},'
          elif [ ${{ inputs.process-production-debug }} == true ]; then
-           echo ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},
+           '${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},'
          elif [ ${{ inputs.process-manual-release }} == true ]; then
-           echo ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},
+           '${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},'
          elif [ ${{ inputs.process-debug }} == true ]; then
-           echo ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},
+           '${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},'
          fi
+         EOF
+        )
 
-        echo "MULTI_LINES_TEXT_ENV_VAR<<EOF" >> $GITHUB_ENV
-        # here we can place the command that will generate multi-line text
-        echo $variant_apk >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        echo variant_apk=$variant_apk_cmd >> $GITHUB_ENV
           
     - name: Using the previously defined environment variable
       run: |
-        echo ${{ env.ONE_LINE_TEXT_ENV_VAR }}
+        echo ${{ env.variant_apk }}
     # - name: Building variants output for APK bundle (Manual Run)
     #   if: github.event_name == 'workflow_dispatch'
     #   id: variant-apks
