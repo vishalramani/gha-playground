@@ -77,8 +77,8 @@ jobs:
 
     - name: Defining a new Environment Variable
       run: |
-        variant_apk_cmd=$(cat << EOF
-         'if [ ${{ inputs.process-production }} == true ]; then
+        variant_apk_cmd="{
+         if [ ${{ inputs.process-production }} == true ]; then
            ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},
          elif [ ${{ inputs.process-beta }} == true ]; then
            ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},
@@ -88,9 +88,8 @@ jobs:
            ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},
          elif [ ${{ inputs.process-debug }} == true ]; then
            ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},
-         fi'
-        EOF
-        )
+         fi
+        }"
 
         echo variant_apk=$variant_apk_cmd >> $GITHUB_ENV
           
