@@ -99,7 +99,7 @@ jobs:
           
     - name: Using the previously defined environment variable
       run: |
-        echo ${{ steps.variant-apks.outputs.variant_apk }}
+        echo ${{ env.variant_apk }}
     # - name: Building variants output for APK bundle (Manual Run)
     #   if: github.event_name == 'workflow_dispatch'
     #   id: variant-apks
