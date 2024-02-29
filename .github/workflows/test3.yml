@@ -95,6 +95,9 @@ jobs:
           variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}"
         fi
         variant_apk="}"
+
+        echo $variant_apk
+        
         echo $variant_apk >> $GITHUB_OUTPUT
       
         # echo 'variant_apk<<EOF' >> $GITHUB_OUTPUT
