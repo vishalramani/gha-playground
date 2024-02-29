@@ -75,29 +75,38 @@ jobs:
       with:
         string: ${{ inputs.flavour-store }}
 
-    - name: Defining a new Environment Variable
+    - name: Building variants output for APK bundle (Manual Run)
       id: variant-apks
       run: |
-        variant_apk="{"
-        if [ ${{ inputs.process-production }} == true ]; then
-          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},"
-        fi
-        if [ ${{ inputs.process-beta }} == true ]; then
-          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},"
-        fi
-        if [ ${{ inputs.process-production-debug }} == true ]; then
-          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},"
-        fi
-        if [ ${{ inputs.process-manual-release }} == true ]; then
-          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},"
-        fi
-        if [ ${{ inputs.process-debug }} == true ]; then
-          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}"
-        fi
-        variant_apk="}"
-        
-        echo $variant_apk >> $GITHUB_OUTPUT
-          
-    - name: Using the previously defined environment variable
+        echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }} }" >> $GITHUB_OUTPUT
+
+    - name: Set up environment variables
       run: |
-        echo "${{ steps.variant-apks.outputs.variant_apk }}"
+        output="{"
+        
+        if [ "${{ github.event.inputs.flavour-store }}" == "google" ]; then
+          if [ "${{ github.event.inputs.process-production }}" == "true" ]; then
+            output="$output googleRelease=true,"
+          fi
+          
+          if [ "${{ github.event.inputs.process-beta }}" == "true" ]; then
+            output="$output googleBeta=true,"
+          fi
+          
+          if [ "${{ github.event.inputs.process-production-debug }}" == "true" ]; then
+            output="$output googleProdDebug=true,"
+          fi
+          
+          if [ "${{ github.event.inputs.process-manual-release }}" == "true" ]; then
+            output="$output googleManualRelease=true,"
+          fi
+          
+          if [ "${{ github.event.inputs.process-debug }}" == "true" ]; then
+            output="$output googleDebug=true,"
+          fi
+        fi
+        
+        output="${output%,}" # Remove the trailing comma
+        output="$output}"
+        
+        echo "::set-output name=final_output::$output"
