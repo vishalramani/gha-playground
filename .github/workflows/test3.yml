@@ -85,27 +85,25 @@ jobs:
       run: |
         output="{"
         
-        if [ "${{ github.event.inputs.flavour-store }}" == "google" ]; then
-          if [ "${{ github.event.inputs.process-production }}" == "true" ]; then
-            output="$output googleRelease=true,"
-          fi
-          
-          if [ "${{ github.event.inputs.process-beta }}" == "true" ]; then
-            output="$output googleBeta=true,"
-          fi
-          
-          if [ "${{ github.event.inputs.process-production-debug }}" == "true" ]; then
-            output="$output googleProdDebug=true,"
-          fi
-          
-          if [ "${{ github.event.inputs.process-manual-release }}" == "true" ]; then
-            output="$output googleManualRelease=true,"
-          fi
-          
-          if [ "${{ github.event.inputs.process-debug }}" == "true" ]; then
-            output="$output googleDebug=true,"
-          fi
-        fi
+        if [ "${{ inputs.process-production }}" == "true" ]; then
+           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Release=true,"
+         fi
+         
+         if [ "${{ inputs.process-beta }}" == "true" ]; then
+           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=true,"
+         fi
+         
+         if [ "${{ inputs.process-production-debug }}" == "true" ]; then
+           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=true,"
+         fi
+         
+         if [ "${{ inputs.process-manual-release }}" == "true" ]; then
+           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=true,"
+         fi
+         
+         if [ "${{ inputs.process-debug }}" == "true" ]; then
+           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=true,"
+         fi
         
         output="${output%,}" # Remove the trailing comma
         output="$output}"
