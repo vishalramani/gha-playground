@@ -76,30 +76,31 @@ jobs:
         string: ${{ inputs.flavour-store }}
 
     - name: Defining a new Environment Variable
+      id: variant-apks
       run: |
-        echo 'variant_apk<<EOF' >> $GITHUB_ENV
-        echo "{" >> $GITHUB_ENV
+        echo 'variant_apk<<EOF' >> $GITHUB_OUTPUT
+        echo "{" >> $GITHUB_OUTPUT
          if [ ${{ inputs.process-production }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}," >> $GITHUB_ENV
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}," >> $GITHUB_OUTPUT
          fi
          if [ ${{ inputs.process-beta }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}," >> $GITHUB_ENV
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}," >> $GITHUB_OUTPUT
          fi
          if [ ${{ inputs.process-production-debug }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}," >> $GITHUB_ENV
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}," >> $GITHUB_OUTPUT
          fi
          if [ ${{ inputs.process-manual-release }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}," >> $GITHUB_ENV
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}," >> $GITHUB_OUTPUT
          fi
          if [ ${{ inputs.process-debug }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}" >> $GITHUB_ENV
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}" >> $GITHUB_OUTPUT
          fi
-        echo "}" >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
+        echo "}" >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
           
     - name: Using the previously defined environment variable
       run: |
-        ${{ env.variant_apk }}
+        ${{ steps.variant-apks.outputs.variant_apk }}
     # - name: Building variants output for APK bundle (Manual Run)
     #   if: github.event_name == 'workflow_dispatch'
     #   id: variant-apks
