@@ -77,7 +77,7 @@ jobs:
 
     - name: Defining a new Environment Variable
       run: |
-        variant_apk_cmd="{
+        echo "{
          if [ ${{ inputs.process-production }} == true ]; then
            ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},
          fi
@@ -93,13 +93,11 @@ jobs:
          if [ ${{ inputs.process-debug }} == true ]; then
            ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},
          fi
-        }"
-
-        echo variant_apk=$variant_apk_cmd >> $GITHUB_ENV
+        }" >> $GITHUB_OUTPUT
           
     - name: Using the previously defined environment variable
       run: |
-        echo ${{ env.variant_apk }}
+        echo ${{ steps.variant-apks.outputs }}
     # - name: Building variants output for APK bundle (Manual Run)
     #   if: github.event_name == 'workflow_dispatch'
     #   id: variant-apks
