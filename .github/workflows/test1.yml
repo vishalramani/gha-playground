@@ -61,7 +61,7 @@ on:
           - 'true'
           - 'false'
 
-  schedule:
+  # schedule:
     # - cron: "*/5 * * * *"
     # - cron: "*/5 * ? * *"
 
