@@ -15,24 +15,24 @@ on:
       process-production:
         description: 'Process prod?'
         required: true
-        type: choice
-        default: 'true'
+        type: Boolean
+        default: true
         options:
           - 'true'
           - 'false'
       process-beta:
         description: 'Process beta?'
         required: true
-        type: choice
-        default: 'true'
+        type: Boolean
+        default: true
         options:
           - 'true'
           - 'false'
       process-production-debug:
         description: 'Process production debug?'
         required: true
-        type: choice
-        default: 'true'
+        type: Boolean
+        default: true
         options:
           - 'true'
           - 'false'
