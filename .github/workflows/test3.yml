@@ -89,7 +89,7 @@ jobs:
          elif [ ${{ inputs.process-debug }} == true ]; then
            '${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},'
          fi
-         EOF
+        EOF
         )
 
         echo variant_apk=$variant_apk_cmd >> $GITHUB_ENV
