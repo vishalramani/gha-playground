@@ -73,12 +73,12 @@ jobs:
       if: github.event_name == 'workflow_dispatch'
       id: variant-apks
       run: |
-        echo "variant_apk={
-          ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},
-          ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},
-          ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},
-          ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},
-          ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }} }
+        echo "variant_apk={ \n
+          ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}, \n
+          ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}, \n
+          ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}, \n
+          ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}, \n
+          ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }} } \n
          " >> $GITHUB_OUTPUT
 
     - name: Create apk from bundle (Manual Run)
