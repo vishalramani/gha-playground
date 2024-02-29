@@ -71,7 +71,8 @@ jobs:
 
     - name: Defining a new Environment Variable
       run: |                          
-        variant_apk="this is line one \n
+        variant_apk=" \n
+         ${{ inputs.process-production == 'true' && 'Release=' }}
                           this is line two \n
                           this is line three \n"    
 
