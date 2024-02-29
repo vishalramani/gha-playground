@@ -79,21 +79,21 @@ jobs:
       id: variant-apks
       run: |
         variant_apk="{"
-         if [ ${{ inputs.process-production }} == true ]; then
-           variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},"
-         fi
-         if [ ${{ inputs.process-beta }} == true ]; then
-           variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},"
-         fi
-         if [ ${{ inputs.process-production-debug }} == true ]; then
-           variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},"
-         fi
-         if [ ${{ inputs.process-manual-release }} == true ]; then
-           variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},"
-         fi
-         if [ ${{ inputs.process-debug }} == true ]; then
-           variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}"
-         fi
+        if [ ${{ inputs.process-production }} == true ]; then
+          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }},"
+        fi
+        if [ ${{ inputs.process-beta }} == true ]; then
+          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }},"
+        fi
+        if [ ${{ inputs.process-production-debug }} == true ]; then
+          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }},"
+        fi
+        if [ ${{ inputs.process-manual-release }} == true ]; then
+          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},"
+        fi
+        if [ ${{ inputs.process-debug }} == true ]; then
+          variant_apk="${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}"
+        fi
         variant_apk="}"
         echo $variant_apk >> $GITHUB_OUTPUT
       
@@ -119,7 +119,7 @@ jobs:
           
     - name: Using the previously defined environment variable
       run: |
-        ${{ steps.variant-apks.outputs.variant_apk }}
+        echo "${{ steps.variant-apks.outputs.variant_apk }}"
     # - name: Building variants output for APK bundle (Manual Run)
     #   if: github.event_name == 'workflow_dispatch'
     #   id: variant-apks
