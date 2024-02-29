@@ -91,9 +91,10 @@ jobs:
            echo "${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }},"
          fi
          if [ ${{ inputs.process-debug }} == true ]; then
-           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }},"
+           echo "${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }}"
          fi
-        echo "}" >> $GITHUB_OUTPUT
+        echo "}"
+        >> $GITHUB_OUTPUT
           
     - name: Using the previously defined environment variable
       run: |
