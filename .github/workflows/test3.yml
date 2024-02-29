@@ -70,7 +70,7 @@ jobs:
       uses: actions/checkout@v2
  
     - name: Building variants output for APK bundle (Manual Run)
-      if: github.event_name == workflow_dispatch
+      if: github.event_name == 'workflow_dispatch'
       id: variant-apks
       run: |
         echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }} }" >> $GITHUB_OUTPUT
