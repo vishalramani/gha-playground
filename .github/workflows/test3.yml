@@ -80,35 +80,35 @@ jobs:
       run: |
         echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ inputs.process-debug }} }" >> $GITHUB_OUTPUT
 
-    - name: Set up environment variables
-      id: set-env-vars
-      run: |
-        output="{"
+    # - name: Set up environment variables
+    #   id: set-env-vars
+    #   run: |
+    #     output="{"
         
-        if [ "${{ inputs.process-production }}" == "true" ]; then
-           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Release=true,"
-         fi
+    #     if [ "${{ inputs.process-production }}" == "true" ]; then
+    #        output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Release=true,"
+    #      fi
          
-         if [ "${{ inputs.process-beta }}" == "true" ]; then
-           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=true,"
-         fi
+    #      if [ "${{ inputs.process-beta }}" == "true" ]; then
+    #        output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=true,"
+    #      fi
          
-         if [ "${{ inputs.process-production-debug }}" == "true" ]; then
-           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=true,"
-         fi
+    #      if [ "${{ inputs.process-production-debug }}" == "true" ]; then
+    #        output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=true,"
+    #      fi
          
-         if [ "${{ inputs.process-manual-release }}" == "true" ]; then
-           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=true,"
-         fi
+    #      if [ "${{ inputs.process-manual-release }}" == "true" ]; then
+    #        output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=true,"
+    #      fi
          
-         if [ "${{ inputs.process-debug }}" == "true" ]; then
-           output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=true,"
-         fi
+    #      if [ "${{ inputs.process-debug }}" == "true" ]; then
+    #        output="$output ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=true,"
+    #      fi
         
-        output="${output%,}" # Remove the trailing comma
-        output="$output}"
+    #     output="${output%,}" # Remove the trailing comma
+    #     output="$output}"
         
-        echo "::set-output name=final_output::$output"
+    #     echo "::set-output name=final_output::$output"
     - name: Print output
       run: |
-        echo "${{ steps.set-env-vars.outputs.final_output }}"
+        echo "${{ steps.variant-apks.outputs.variant_apk }}"
