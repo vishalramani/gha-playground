@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Greeting
-        run: echo "Hello World this ran from first CRON GHA"
+        run: echo "Hello World this ran from first CRON GHA" - ${{ github.event_name }}
 
       - name: Print Goodbye
         if: github.event_name == 'workflow_call'
