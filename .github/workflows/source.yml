@@ -1,4 +1,5 @@
 name: Source WF (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
+run-name: Source WF (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
 on:
   workflow_dispatch:
 
