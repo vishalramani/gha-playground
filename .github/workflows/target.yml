@@ -23,6 +23,7 @@ jobs:
         run: echo "Hello World this ran from first CRON GHA"
 
       - name: Print Goodbye
+        if: github.event_name == 'workflow_call'
         run: echo "Done- Bye!!"
 
       - name: Print Platform
