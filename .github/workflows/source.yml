@@ -3,8 +3,8 @@ run-name: Source WF (${{ github.event_name == 'workflow_dispatch' && 'Manual' ||
 on:
   workflow_dispatch:
 
-  schedule:
-    - cron: '*/2 * * * *'
+  # schedule:
+  #   - cron: '0 22 * * *'
     # - cron: '0 1 * * 2-6'
 
 jobs:
