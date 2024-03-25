@@ -13,13 +13,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: '0'
-          
-      - name: Print Greeting
-        run: echo "Hello World this ran from first CRON GHA"
 
       - name: git
         run: |
           git rev-list --count --all
+
+      - name: Count Commits
+        run: |
+          branch=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.before != '0000000000000000000000000000000000000000' && github.event.after != '0000000000000000000000000000000000000000' && echo "main" || echo "other" }}
+          if [[ $branch == "other" ]]; then
+            branch=null
+          fi
+          commit_count=$(git log --oneline --branches="$branch" | wc -l)
+          echo "Number of commits: $commit_count"
 
       - name: Print Goodbye
         run: echo "Done- Bye!!"
