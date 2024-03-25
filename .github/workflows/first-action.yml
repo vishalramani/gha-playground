@@ -20,11 +20,7 @@ jobs:
 
       - name: Count Commits
         run: |
-          branch=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.before != '0000000000000000000000000000000000000000' && github.event.after != '0000000000000000000000000000000000000000' && echo "main" || echo "other" }}
-          if [[ $branch == "other" ]]; then
-            branch=null
-          fi
-          commit_count=$(git log --oneline --branches="$branch" | wc -l)
+          commit_count=$(git log --oneline --branches="main" | wc -l)
           echo "Number of commits: $commit_count"
 
       - name: Print Goodbye
