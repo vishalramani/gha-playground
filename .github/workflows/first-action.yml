@@ -12,5 +12,8 @@ jobs:
       - name: Print Greeting
         run: echo "Hello World this ran from first CRON GHA"
 
+      - name: Print the commit count
+        run: echo git rev-list --count --all
+
       - name: Print Goodbye
         run: echo "Done- Bye!!"
