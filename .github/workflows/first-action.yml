@@ -9,11 +9,16 @@ jobs:
   first-job:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
       - name: Print Greeting
         run: echo "Hello World this ran from first CRON GHA"
 
       - name: Print the commit count
-        run: git rev-list --count --all
+        run: echo git rev-list --count --all
 
       - name: Print Goodbye
         run: echo "Done- Bye!!"
