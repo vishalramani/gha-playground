@@ -12,13 +12,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: '0'
           
       - name: Print Greeting
         run: echo "Hello World this ran from first CRON GHA"
 
-      - name: Print the commit count
-        run: echo "git rev-list --count --all"
+      - name: git
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git --version
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git status
+          git tag
+          git describe
 
       - name: Print Goodbye
         run: echo "Done- Bye!!"
