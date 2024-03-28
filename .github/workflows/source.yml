@@ -3,9 +3,8 @@ run-name: Source WF (${{ github.event_name == 'workflow_dispatch' && 'Manual' ||
 on:
   workflow_dispatch:
 
-  # schedule:
-  #   - cron: '0 22 * * *'
-    # - cron: '0 1 * * 2-6'
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   first-wf:
@@ -23,3 +22,25 @@ jobs:
     with:
       platform: Google
       deviceNames: 'US'
+
+  cron_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run script with inputs
+        run: |
+          # Accessing inputs
+          echo "Input value: ${{ inputs.example_input }}"
+          echo "Another input value: ${{ inputs.another_input }}"
+
+        # Define inputs
+        env:
+          example_input: ${{ github.event.inputs.example_input }}
+          another_input: ${{ github.event.inputs.another_input }}
+
+        # Default inputs
+        with:
+          example_input: 'default_value'
+          another_input: 'default_value'
