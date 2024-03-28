@@ -31,8 +31,8 @@ jobs:
 
       - name: Run script with inputs
         env:
-          example_input: ${{ github.event.inputs.example_input }}
-          another_input: ${{ github.event.inputs.another_input }}
+          example_input: ${{ inputs.example_input }}
+          another_input: ${{ inputs.another_input }}
         run: |
           # Accessing inputs
           echo "Input value: $example_input"
