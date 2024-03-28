@@ -30,17 +30,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run script with inputs
-        run: |
-          # Accessing inputs
-          echo "Input value: ${{ inputs.example_input }}"
-          echo "Another input value: ${{ inputs.another_input }}"
-
-        # Define inputs
         env:
           example_input: ${{ github.event.inputs.example_input }}
           another_input: ${{ github.event.inputs.another_input }}
-
-        # Default inputs
-        with:
-          example_input: 'default_value'
-          another_input: 'default_value'
+        run: |
+          # Accessing inputs
+          echo "Input value: $example_input"
+          echo "Another input value: $another_input"
