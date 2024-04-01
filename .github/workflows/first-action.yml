@@ -26,6 +26,7 @@ jobs:
         run: |
           commit_count=$(git log --oneline --branches="main" | wc -l)
           echo "Number of commits: $commit_count"
+          echo "new commit count: ${{ steps.artifact-version.outputs.mobversion }}"
           echo "New version $MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }}"
 
       - name: Print Goodbye
