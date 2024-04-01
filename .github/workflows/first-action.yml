@@ -24,7 +24,7 @@ jobs:
 
       - name: Count Commits
         run: |
-          result_add=$(($MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }}))
+          result_add=$(($MOBILE_DEFAULT_VERSION + $(git log develop --oneline | wc -l)))
           echo "Addition: $result_add"
 
       - name: Print Goodbye
