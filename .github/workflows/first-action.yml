@@ -7,7 +7,7 @@ on:
       - completed
 
 env:
-  mobile_default_version: 130000
+  MOBILE_DEFAULT_VERSION: 130000
 
 jobs:
   first-job:
@@ -26,7 +26,7 @@ jobs:
         run: |
           commit_count=$(git log --oneline --branches="main" | wc -l)
           echo "Number of commits: $commit_count"
-          echo "New version ${{ mobile_default_version }} + ${{ steps.artifact-version.outputs.mobversion }}"
+          echo "New version $MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }}"
 
       - name: Print Goodbye
         run: echo "Done- Bye!!"
