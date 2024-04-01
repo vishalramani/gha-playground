@@ -29,7 +29,7 @@ jobs:
           echo "Number of commits: $commit_count"
           echo "new commit count: ${{ steps.artifact-version.outputs.mobversion }}"
           echo "new mobversion1: $mobversion1"
-          echo "New version $MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }}"
+          echo "New version (expr $MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }})"
 
       - name: Print Goodbye
         run: echo "Done- Bye!!"
