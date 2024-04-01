@@ -24,12 +24,6 @@ jobs:
 
       - name: Count Commits
         run: |
-          commit_count=$(git log --oneline --branches="main" | wc -l)
-          mobversion1=git log develop --oneline | wc -l
-          echo "Number of commits: $commit_count"
-          echo "new commit count: ${{ steps.artifact-version.outputs.mobversion }}"
-          echo "new mobversion1: $mobversion1"
-          echo "New version (expr $MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }})"
           result_add=$(($MOBILE_DEFAULT_VERSION + ${{ steps.artifact-version.outputs.mobversion }}))
           echo "Addition: $result_add"
 
