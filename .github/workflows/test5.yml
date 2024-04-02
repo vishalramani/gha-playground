@@ -23,7 +23,7 @@ jobs:
         run: echo "$(git rev-parse HEAD)"
 
       - name: Test
-        run: echo "/This is a test/" | sed s/\//:/g
+        run: echo "/This is a test/" | sed 's/\//-/g'
 
       # - name: Extract branch name
       #   shell: bash
