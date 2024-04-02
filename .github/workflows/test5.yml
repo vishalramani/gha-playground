@@ -16,3 +16,5 @@ jobs:
         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
         env:
           First_Name: Mona
+      - name: Get Commit Hash
+        run: echo "$(git_hash=$(git rev-parse --short "$GITHUB_SHA"))"
