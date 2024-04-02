@@ -37,4 +37,4 @@ jobs:
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}/vish" >> $GITHUB_OUTPUT
 
       - name: Show the Branch & Hash
-        run: echo "Branch - ${{ steps.extract_branch.outputs.branch }} & Hash - ${{ steps.commit-hash.outputs.commitHash }}"
+        run: echo "Branch - ${{ steps.extract_branch.outputs.branch }} | sed s/'/'/-/g  & Hash - ${{ steps.commit-hash.outputs.commitHash }}"
