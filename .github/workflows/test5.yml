@@ -22,10 +22,19 @@ jobs:
       - name: Get Commit Hash
         run: echo "$(git rev-parse HEAD)"
 
+      # - name: Extract branch name
+      #   shell: bash
+      #   run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      #   id: extract_branch
+
+      - name: Get the latest commit hash
+        id: commit-hash
+        run: echo "commitHash=$(git rev-parse HEAD)""
+
       - name: Extract branch name
+        id: extract_branch
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
 
-      - name: Show the Branch
-        run: echo "${{ steps.extract_branch.outputs.branch }}"
+      - name: Show the Branch & Hash
+        run: echo "Branch - ${{ steps.extract_branch.outputs.branch }} & Hash - ${{ steps.commit-hash.outputs.commitHash }}"
