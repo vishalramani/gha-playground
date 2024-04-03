@@ -32,7 +32,7 @@ jobs:
 
       - name: Get the latest commit hash
         id: commit-hash
-        run: echo "commitHash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        run: echo "commitHash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Extract branch name
         id: extract_branch
