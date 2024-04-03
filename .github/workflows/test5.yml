@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Get Commit Hash
-        run: echo "$(git rev-parse HEAD)"
+        run: echo "$(git rev-parse --short HEAD)"
 
       - name: Test
         run: echo "/This is a test/" | sed 's/\//-/g'
