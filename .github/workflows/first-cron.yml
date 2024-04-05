@@ -3,8 +3,8 @@ run-name: UI Automator - Physical ${{ github.event_name == 'schedule' && 'All De
        # Controls when the workflow will run
 on:
   # Triggers the workflow every 5 minutes
-  schedule:
-    - cron: "*/5 * * * *"
+  # schedule:
+    # - cron: "*/5 * * * *"
     # - cron: '0 1-4/3,18-23/3 * * *'
   workflow_dispatch:
   # schedule:
