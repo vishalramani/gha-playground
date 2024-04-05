@@ -1,0 +1,63 @@
+name: Dynamic Run Name
+
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'The tag of the image to use for the container'
+        required: true
+        type: string
+        default: latest
+      platform:
+        description: 'Select the platform to run the UI Automator'
+        required: true
+        type: choice
+        default: 'Amazon'
+        options:
+          - Amazon
+          - Huawei
+          - Google
+      deviceNames:
+        description: 'The device name separated by comma (Please avoid adding white spaces)'
+        required: true
+        type: string
+        default: 'JP'
+  schedule:
+    - cron: '*/5 * * * *' # Runs every day at midnight UTC
+
+jobs:
+  set_run_name:
+    runs-on: ubuntu-latest
+    outputs:
+      run_name: ${{ steps.set_run_name.outputs.run_name }}
+    steps:
+      - name: Set Run Name
+        id: set_run_name
+        run: |
+          if [ "${{ github.event_name }}" == "schedule" ]; then
+            device="All Devices"
+          else
+            device="${{ inputs.flavour-store }}Device"
+          fi
+
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            run_type="Manual Run"
+          else
+            run_type="Nightly Run"
+          fi
+
+          run_name="UI Automator - Physical ${device} (${{ inputs.flavour-store }}) (${run_type})"
+          echo "::set-output name=run_name::${run_name}"
+
+  run_tests:
+    needs: set_run_name
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        run: |
+          # Your test execution commands here
+          echo "Running tests..."
+
