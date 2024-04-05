@@ -1,10 +1,11 @@
 name: First Cron Job
-
+run-name: UI Automator - Physical ${{ github.event_name == 'schedule' && 'All Devices' || '${{ inputs.flavour-store }} Device' }} (${{ inputs.flavour-store }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }})
        # Controls when the workflow will run
 on:
   # Triggers the workflow every 5 minutes
   schedule:
-    - cron: '0 1-4/3,18-23/3 * * *'
+    - cron: "*/5 * * * *"
+    # - cron: '0 1-4/3,18-23/3 * * *'
   workflow_dispatch:
   # schedule:
     # - cron: "*/5 * * * *"
