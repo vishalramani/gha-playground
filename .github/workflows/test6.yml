@@ -1,5 +1,5 @@
 name: Dynamic Run Name
-run-name: UI Automator - Physical ${{ github.event_name == 'schedule' && 'All Devices' || `${{ inputs.platform }} Device` }} (${{ inputs.platform }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }})
+run-name: UI Automator - Physical ${{ github.event_name == 'schedule' && 'All Devices' || inputs.platform }} (${{ inputs.platform }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }})
 
 on:
   workflow_dispatch:
