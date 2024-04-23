@@ -27,6 +27,86 @@ jobs:
       - name: Print Device names
         run: echo ${{ inputs.deviceNames }}
 
-      - name: Print if CS is selected
+      - name: Print if CA is selected
         if: ${{ contains(inputs.deviceNames, 'CA') }}
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (CA)
+        if: always() && ${{ contains(inputs.deviceNames, 'CA') }}
+        id: install-apks-ca
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (CA)
+        if: always() && ${{ contains(inputs.deviceNames, 'CA') }} && steps.install-apks-ca.outcome == 'success'
+        id: run-tests-ca
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (IT)
+        if: always() && ${{ contains(inputs.deviceNames, 'IT') }}
+        id: install-apks-it
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (IT)
+        if: always() && ${{ contains(inputs.deviceNames, 'IT') }} && steps.install-apks-it.outcome == 'success'
+        id: run-tests-it
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (US)
+        if: always() && ${{ contains(inputs.deviceNames, 'US') }}
+        id: install-apks-us
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (US)
+        if: always() && ${{ contains(inputs.deviceNames, 'US') }} && steps.install-apks-us.outcome == 'success'
+        id: run-tests-us
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (ES)
+        if: always() && ${{ contains(inputs.deviceNames, 'ES') }}
+        id: install-apks-es
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (ES)
+        if: always() && ${{ contains(inputs.deviceNames, 'ES') }} && steps.install-apks-es.outcome == 'success'
+        id: run-tests-es
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (JP)
+        if: always() && ${{ contains(inputs.deviceNames, 'JP') }}
+        id: install-apks-jp
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (JP)
+        if: always() && ${{ contains(inputs.deviceNames, 'JP') }} && steps.install-apks-jp.outcome == 'success'
+        id: run-tests-jp
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (DACH)
+        if: always() && ${{ contains(inputs.deviceNames, 'DACH') }}
+        id: install-apks-dach
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (DACH)
+        if: always() && ${{ contains(inputs.deviceNames, 'DACH') }} && steps.install-apks-dach.outcome == 'success'
+        id: run-tests-dach
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (BR)
+        if: always() && ${{ contains(inputs.deviceNames, 'BR') }}
+        id: install-apks-br
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (BR)
+        if: always() && ${{ contains(inputs.deviceNames, 'BR') }} && steps.install-apks-br.outcome == 'success'
+        id: run-tests-br
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Install APK (GB)
+        if: always() && ${{ contains(inputs.deviceNames, 'GB') }}
+        id: install-apks-gb
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Run Tests (GB)
+        if: always() && ${{ contains(inputs.deviceNames, 'GB') }} && steps.install-apks-gb.outcome == 'success'
+        id: run-tests-gb
         run: echo ${{ inputs.deviceNames }}
