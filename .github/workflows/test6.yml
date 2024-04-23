@@ -50,6 +50,9 @@ jobs:
         if: ${{ contains(inputs.deviceNames, 'IT') }}
         id: run-tests-it
         run: echo ${{ inputs.deviceNames }}
+        
+      - name: Fail the job
+        run: exit 1
 
       - name: Install APK (US)
         if: ${{ contains(inputs.deviceNames, 'US') }}
