@@ -1,6 +1,5 @@
-name: Dynamic Run Name
-run-name: UI Automator - Physical (${{ github.event_name == 'schedule' && 'All Devices' || inputs.platform }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual Run' || 'Nightly Run' }})
-
+name: Test 6
+run-name: Test 6 - (${{ inputs.deviceNames }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
 on:
   workflow_dispatch:
     inputs:
@@ -9,56 +8,21 @@ on:
         required: true
         type: string
         default: latest
-      platform:
-        description: 'Select the platform to run the UI Automator'
-        required: true
-        type: choice
-        default: 'Amazon'
-        options:
-          - Amazon
-          - Huawei
-          - Google
       deviceNames:
-        description: 'The device name separated by comma (Please avoid adding white spaces)'
-        required: true
+        description: "Device names"
         type: string
-        default: 'JP'
-  # schedule:
-  #   - cron: '*/5 * * * *' # Runs every day at midnight UTC
-
+        required: true
+        default: CA,IT,US,ES,JP,DACH,BR,GB
+        
 jobs:
-  set_run_name:
-    runs-on: ubuntu-latest
-    outputs:
-      run_name: ${{ steps.set_run_name.outputs.run_name }}
-    steps:
-      - name: Set Run Name
-        id: set_run_name
-        run: |
-          if [ "${{ github.event_name }}" == "schedule" ]; then
-            device="All Devices"
-          else
-            device="${{ inputs.flavour-store }}Device"
-          fi
-
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            run_type="Manual Run"
-          else
-            run_type="Nightly Run"
-          fi
-
-          run_name="UI Automator - Physical ${device} (${{ inputs.flavour-store }}) (${run_type})"
-          echo "::set-output name=run_name::${run_name}"
-
-  run_tests:
-    needs: set_run_name
+  first-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Print Greeting
+        run: echo "Hello World this ran from first CRON GHA"
 
-      - name: Run tests
-        run: |
-          # Your test execution commands here
-          echo "Running tests..."
+      - name: Print Goodbye
+        run: echo "Done- Bye!!"
 
+      - name: Print Device names
+        run: echo ${{ inputs.deviceNames }}
