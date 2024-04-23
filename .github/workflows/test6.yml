@@ -23,8 +23,8 @@ on:
         required: true
         type: string
         default: 'JP'
-  schedule:
-    - cron: '*/5 * * * *' # Runs every day at midnight UTC
+  # schedule:
+  #   - cron: '*/5 * * * *' # Runs every day at midnight UTC
 
 jobs:
   set_run_name:
