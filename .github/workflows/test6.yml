@@ -52,7 +52,7 @@ jobs:
         run: echo ${{ inputs.deviceNames }}
         
       - name: Fail the job
-        run: exit 1
+        run: exit 0
 
       - name: Install APK (US)
         if: always() && ${{ contains(inputs.deviceNames, 'US') }}
