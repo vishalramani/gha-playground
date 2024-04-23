@@ -102,11 +102,11 @@ jobs:
         run: echo ${{ inputs.deviceNames }}
 
       - name: Install APK (GB)
-        if: always() && ${{ contains(inputs.deviceNames, 'GB') }}
+        if: ${{ contains(inputs.deviceNames, 'GB') }}
         id: install-apks-gb
         run: echo ${{ inputs.deviceNames }}
 
       - name: Run Tests (GB)
-        if: always() && ${{ contains(inputs.deviceNames, 'GB') }} && steps.install-apks-gb.outcome == 'success'
+        if: ${{ contains(inputs.deviceNames, 'GB') }} && steps.install-apks-gb.outcome == 'success'
         id: run-tests-gb
         run: echo ${{ inputs.deviceNames }}
