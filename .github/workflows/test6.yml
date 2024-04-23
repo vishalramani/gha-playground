@@ -55,7 +55,7 @@ jobs:
         run: exit 1
 
       - name: Install APK (US)
-        if: ${{ contains(inputs.deviceNames, 'US') }}
+        if: always() && ${{ contains(inputs.deviceNames, 'US') }}
         id: install-apks-us
         run: echo ${{ inputs.deviceNames }}
 
