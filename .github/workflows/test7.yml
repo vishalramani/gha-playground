@@ -1,0 +1,36 @@
+name: Test 6
+run-name: Test 7 - (${{ inputs.deviceNames }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'The tag of the image to use for the container'
+        required: true
+        type: string
+        default: latest
+      deviceNames:
+        description: "Device names"
+        type: string
+        required: true
+        default: CA,IT,US,ES,JP,DACH,BR,GB
+        
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Greeting
+        run: echo "Hello World this ran from first CRON GHA"
+
+      - name: Print Goodbye
+        run: echo "Done- Bye!!"
+
+      - name: Print Device names
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Print if CA is selected
+        if: ${{ contains(inputs.deviceNames, 'CA') }}
+        run: echo ${{ inputs.deviceNames }}
+
+      - name: Print if IT is selected
+        if: ${{ contains(inputs.deviceNames, 'IT') }}
+        run: echo ${{ inputs.deviceNames }}
