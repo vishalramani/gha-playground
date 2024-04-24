@@ -25,12 +25,13 @@ jobs:
         run: echo "Done- Bye!!"
 
       - name: Print Device names
+        id: print-devices
         run: echo ${{ inputs.deviceNames }}
 
       - name: Print if CA is selected
-        if: ${{ contains(inputs.deviceNames, 'CA') }}
+        if: always() && ${{ contains(inputs.deviceNames, 'CA') }} && steps.print-devices.outcome == 'success'
         run: echo ${{ inputs.deviceNames }}
 
       - name: Print if IT is selected
-        if: ${{ contains(inputs.deviceNames, 'IT') }}
+        if: always() && ${{ contains(inputs.deviceNames, 'IT') }} && steps.print-devices.outcome == 'success'
         run: echo ${{ inputs.deviceNames }}
