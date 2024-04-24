@@ -36,5 +36,5 @@ jobs:
         run: exit 1
 
       - name: Print if IT is selected
-        if: always() && ${{ contains(inputs.deviceNames, 'IT') }} && steps.print-devices.outcome == 'success'
+        if: always() && contains(inputs.deviceNames, 'IT') && steps.print-devices.outcome == 'success'
         run: echo ${{ inputs.deviceNames }}
