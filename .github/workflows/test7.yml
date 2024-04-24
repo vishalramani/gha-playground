@@ -29,7 +29,7 @@ jobs:
         run: echo ${{ inputs.deviceNames }}
 
       - name: Print if CA is selected
-        if: always() && ${{ contains(inputs.deviceNames, 'CA') }} && steps.print-devices.outcome == 'success'
+        if: ${{ always() && contains(inputs.deviceNames, 'CA') && steps.print-devices.outcome == 'success' }}
         run: echo ${{ inputs.deviceNames }}
 
       - name: Fail the job
