@@ -13,6 +13,8 @@ on:
         type: string
         required: true
         default: CA,IT,US,ES,JP,DACH,BR,GB
+  schedule:
+    - cron: "*/5 * * * *"
         
 jobs:
   first-job:
