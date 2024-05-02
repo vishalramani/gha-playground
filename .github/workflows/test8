@@ -1,0 +1,33 @@
+name: Test 8 - HAXM/KVM Emulator
+run-name: Test 7 - (${{ inputs.deviceNames }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'The tag of the image to use for the container'
+        required: true
+        type: string
+        default: latest
+      deviceNames:
+        description: "Device names"
+        type: string
+        required: true
+        default: CA,IT,US,ES,JP,DACH,BR,GB
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
