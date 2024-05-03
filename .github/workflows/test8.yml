@@ -1,5 +1,5 @@
 name: Test 8 - HAXM/KVM Emulator
-run-name: Test 7 - (${{ inputs.deviceNames }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
+run-name: Test 8 - HAXM/KVM Emulator - (${{ inputs.deviceNames }}) (${{ github.event_name == 'workflow_dispatch' && 'Manual' || 'Nightly' }} Run)
 on:
   workflow_dispatch:
     inputs:
