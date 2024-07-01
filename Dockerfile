@@ -3,3 +3,4 @@ LABEL maintainer="DAZN"
 
 ENV ANDROID_HOME "/sdk"
 ENV ANDROID_AVD_HOME "/.android"
+ENV DAZN_HOME "/home/dazn"
