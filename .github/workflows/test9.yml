@@ -41,6 +41,7 @@ jobs:
         
   build-image:
     # if: ${{ needs.check-dockerfile-change.outputs.dockerfile_changed == 'true' }}
+    needs: [check-dockerfile-change]
     runs-on: ubuntu-latest
     steps:
       - name: Run if Dockerfile changed
