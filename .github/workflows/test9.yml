@@ -44,7 +44,6 @@ jobs:
         
   build-image:
     needs: check-dockerfile-change
-    id: build-image
     if: needs.check-dockerfile-change.outputs.dockerfile_changed == 'true'
     runs-on: ubuntu-latest
     steps:
