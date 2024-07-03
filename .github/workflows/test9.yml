@@ -44,6 +44,7 @@ jobs:
         
   build-image:
     needs: check-dockerfile-change
+    id: build-image
     if: needs.check-dockerfile-change.outputs.dockerfile_changed == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -65,4 +66,17 @@ jobs:
     steps:
       - name: Print Goodbye
         run: echo "Done- Bye!!"
+
+  always-run-job:
+    needs: [check-dockerfile-change, build-image]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run some commands
+        run: |
+          echo "This job runs always, regardless of previous job outputs"
+          # Add commands you want to run always
     
