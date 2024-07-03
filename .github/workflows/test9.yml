@@ -38,6 +38,9 @@ jobs:
       - name: Run if Dockerfile did not change
         if: steps.check_changes.outputs.dockerfile_changed == 'false'
         run: echo "This step runs because the Dockerfile has not changed."
+
+      - name: Run Always
+        run: echo ${{ needs.check-dockerfile-change.outputs.dockerfile_changed }}
         
   build-image:
     # if: ${{ needs.check-dockerfile-change.outputs.dockerfile_changed == 'true' }}
