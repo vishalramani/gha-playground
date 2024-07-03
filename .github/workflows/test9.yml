@@ -38,7 +38,7 @@ jobs:
         run: echo "This step runs because the Dockerfile has not changed."
         
   build-image:
-    if: ${{ needs.check-dockerfile-change.outputs.dockerfile_changed == 'true' }}
+    # if: ${{ needs.check-dockerfile-change.outputs.dockerfile_changed == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Run if Dockerfile changed
