@@ -57,3 +57,12 @@ jobs:
 
       - name: Run Always
         run: echo ${{ needs.check-dockerfile-change.outputs.dockerfile_changed }}
+
+  non-emulator-verification:
+    name: Non Emulator Verification
+    if: always() && needs.check-dockerfile-change.outputs.dockerfile_changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Goodbye
+        run: echo "Done- Bye!!"
+    
