@@ -32,11 +32,11 @@ jobs:
           fi
 
       - name: Run if Dockerfile changed
-        if: steps.check_changes.outputs.dockerfile_changed == 'true'
+        if: steps.check_changes.outputs.changed == 'true'
         run: echo "This step runs because the Dockerfile has changed."
 
       - name: Run if Dockerfile did not change
-        if: steps.check_changes.outputs.dockerfile_changed == 'false'
+        if: steps.check_changes.outputs.changed == 'false'
         run: echo "This step runs because the Dockerfile has not changed."
 
       - name: Run Always
