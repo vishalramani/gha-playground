@@ -11,6 +11,8 @@ on:
 jobs:
   check-dockerfile-change:
     runs-on: ubuntu-latest
+    outputs:
+      dockerfile_changed: ${{ steps.check-dockerfile-change.outputs.dockerfile_changed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
