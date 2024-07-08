@@ -88,6 +88,6 @@ jobs:
 
   test-job:
     name: 🧪 Test GH Secrets
-    needs: example-job
+    needs: always-run-job
     if: always()
     uses: ./.github/workflows/reusable.yml
