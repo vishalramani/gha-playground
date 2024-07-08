@@ -2,10 +2,19 @@ name: Re-usable Workflow
 on:
   workflow_call:
 
+env:
+  # test_secret: ${{ secrets.TEST_SECRET }}
+  test_secret: 'Vishal123'
+
 jobs:
   job1:
     name: Job 1
     runs-on: ubuntu-latest
     steps:
-      - name: Job 1
-        uses: ./.github/actions/test/action.yml
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 1️⃣ Job
+        uses: ./.github/actions/test
+        # with:
+        #   test_secret: ${{ secrets.TEST_SECRET }}

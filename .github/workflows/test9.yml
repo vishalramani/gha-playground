@@ -8,6 +8,10 @@ on:
     # paths-ignore:
     #   - 'Dockerfile'
 
+env:
+  # test_secret: ${{ secrets.TEST_SECRET }}
+  test_secret: 'Vishal123'
+
 jobs:
   check-dockerfile-change:
     runs-on: ubuntu-latest
@@ -66,8 +70,23 @@ jobs:
       - name: Print Goodbye
         run: echo "Done- Bye!!"
 
-  always-run-job:
+  test-job:
+    name: 🧪 Test GH Secrets
     needs: [check-dockerfile-change, build-image]
+    if: always()
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.test-secrets.outputs.image_tag }}
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 🧪 Test GH Secrets
+        id: test-secrets
+        uses: ./.github/actions/test
+
+  always-run-job:
+    needs: [check-dockerfile-change, build-image, test-job]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -75,6 +94,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run some commands
+        id: file_check
         run: |
           if git diff --name-only HEAD^ HEAD | grep -q 'Dockerfile'; then
             echo "::set-output name=run_job::true"
@@ -84,10 +104,9 @@ jobs:
 
       - name: Conditional step
         if: steps.file_check.outputs.run_job == 'true'
-        run: echo "This job runs only when there's some change in 'Dockerfile'."
+        run: |
+          echo "This job runs only when there's some change in 'Dockerfile'."
 
-  test-job:
-    name: 🧪 Test GH Secrets
-    needs: example-job
-    if: always()
-    uses: ./.github/workflows/reusable.yml
+      - name: Check Outputs
+        run: |
+          echo "${{ needs.test-job.outputs.image-tag }}"

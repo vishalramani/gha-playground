@@ -1,10 +1,38 @@
 name: 🏗️ Test the Secrets
 description: Test the secrets from GH
-
+inputs:
+  promote-to-prod:
+    description: Promote to Prod
+    required: false
+#   test_secret:
+#     description: Test Secret
+#     required: false
+outputs:
+  commit_hash:
+    description: Commit Hash
+    value: ${{ steps.commit-hash.outputs.commit_hash }}
+  image_tag:
+    description: Image Tag
+    value: ${{ steps.commit-hash.outputs.image_tag }}
 runs:
   using: composite
   steps:
     - name: 🏗️ Test the Secrets
       shell: bash
       run: |
-        echo "${{ secrets.TEST_SECRET }}"
+        echo "Vishal"
+        echo "${{ env.test_secret }}"
+
+    - name: 📞 Get commit hash
+      id: commit-hash
+      shell: bash
+      run: |
+        SHA=$(git rev-parse --short HEAD)
+        echo "commit_hash=$SHA" >> $GITHUB_OUTPUT
+        echo "image_tag=dev-$SHA" >> $GITHUB_OUTPUT
+
+    - name: ❓ Check if promote to Prod
+      if: ${{ inputs.promote-to-prod == 'true' }}
+      shell: bash
+      run: |
+        echo "Promoting to Prod"
