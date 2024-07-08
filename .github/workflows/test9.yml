@@ -27,3 +27,9 @@ jobs:
       - name: Conditional step
         if: steps.file_check.outputs.run_job == 'true'
         run: echo "This job runs only when there's some change in 'Dockerfile'."
+
+  test-job:
+    name: 🧪 Test GH Secrets
+    needs: example-job
+    if: always()
+    uses: ./.github/workflows/reusable.yml
