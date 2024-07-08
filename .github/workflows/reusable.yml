@@ -1,0 +1,11 @@
+name: Re-usable Workflow
+on:
+  workflow_call:
+
+jobs:
+  job1:
+    name: Job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job 1
+        uses: ./.github/actions/test/action.yml

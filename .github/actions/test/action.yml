@@ -1,0 +1,10 @@
+name: 🏗️ Test the Secrets
+description: Test the secrets from GH
+
+runs:
+  using: composite
+  steps:
+    - name: 🏗️ Test the Secrets
+      shell: bash
+      run: |
+        echo "${{ secrets.TEST_SECRET }}"

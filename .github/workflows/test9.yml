@@ -41,7 +41,7 @@ jobs:
 
       - name: Run Always
         run: echo ${{ needs.check-dockerfile-change.outputs.dockerfile_changed }}
-        
+
   build-image:
     needs: check-dockerfile-change
     if: needs.check-dockerfile-change.outputs.dockerfile_changed == 'true'
@@ -76,6 +76,18 @@ jobs:
 
       - name: Run some commands
         run: |
-          echo "This job runs always, regardless of previous job outputs"
-          # Add commands you want to run always
-    
+          if git diff --name-only HEAD^ HEAD | grep -q 'Dockerfile'; then
+            echo "::set-output name=run_job::true"
+          else
+            echo "::set-output name=run_job::false"
+          fi
+
+      - name: Conditional step
+        if: steps.file_check.outputs.run_job == 'true'
+        run: echo "This job runs only when there's some change in 'Dockerfile'."
+
+  test-job:
+    name: 🧪 Test GH Secrets
+    needs: example-job
+    if: always()
+    uses: ./.github/workflows/reusable.yml
