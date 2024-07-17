@@ -77,8 +77,8 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    outputs:
-      variant_apks_string:
+    # outputs:
+    #   variant_apks_string:
         # description: Variant APKs String
         # value: ${{ steps.variant-apks.outputs.variant_apks }}
 
