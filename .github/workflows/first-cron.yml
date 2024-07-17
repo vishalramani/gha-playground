@@ -7,9 +7,6 @@ on:
     # - cron: "*/5 * * * *"
     # - cron: '0 1-4/3,18-23/3 * * *'
   workflow_dispatch:
-  # schedule:
-    # - cron: "*/5 * * * *"
-    # - cron: "*/5 * ? * *"
     inputs:
       flavour-store:
         description: 'Choose store'
