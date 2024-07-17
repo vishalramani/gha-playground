@@ -7,64 +7,64 @@ on:
     # - cron: "*/5 * * * *"
     # - cron: '0 1-4/3,18-23/3 * * *'
   workflow_dispatch:
-    inputs:
-      flavour-store:
-        description: 'Choose store'
-        required: true
-        type: choice
-        default: 'Google'
-        options:
-          - Google
-          - Amazon
-          - Huawei
-      process-production:
-        description: 'Process prod?'
-        required: true
-        type: choice
-        default: 'false'
-        options:
-          - 'true'
-          - 'false'
-      process-beta:
-        description: 'Process beta?'
-        required: true
-        type: choice
-        default: 'false'
-        options:
-          - 'true'
-          - 'false'
-      process-production-debug:
-        description: 'Process production debug?'
-        required: true
-        type: choice
-        default: 'false'
-        options:
-          - 'true'
-          - 'false'
-      process-manual-release:
-        description: 'Process manual  Release?'
-        required: true
-        type: choice
-        default: 'false'
-        options:
-          - 'true'
-          - 'false'
-      process-debug:
-        description: 'Process debug?'
-        required: true
-        type: choice
-        default: 'false'
-        options:
-          - 'true'
-          - 'false'
-      google-play-upload:
-        description: 'Is Google Play upload required?'
-        required: true
-        type: choice
-        default: 'false'
-        options:
-          - 'true'
-          - 'false'
+    # inputs:
+    #   flavour-store:
+    #     description: 'Choose store'
+    #     required: true
+    #     type: choice
+    #     default: 'Google'
+    #     options:
+    #       - Google
+    #       - Amazon
+    #       - Huawei
+    #   process-production:
+    #     description: 'Process prod?'
+    #     required: true
+    #     type: choice
+    #     default: 'false'
+    #     options:
+    #       - 'true'
+    #       - 'false'
+    #   process-beta:
+    #     description: 'Process beta?'
+    #     required: true
+    #     type: choice
+    #     default: 'false'
+    #     options:
+    #       - 'true'
+    #       - 'false'
+    #   process-production-debug:
+    #     description: 'Process production debug?'
+    #     required: true
+    #     type: choice
+    #     default: 'false'
+    #     options:
+    #       - 'true'
+    #       - 'false'
+    #   process-manual-release:
+    #     description: 'Process manual  Release?'
+    #     required: true
+    #     type: choice
+    #     default: 'false'
+    #     options:
+    #       - 'true'
+    #       - 'false'
+    #   process-debug:
+    #     description: 'Process debug?'
+    #     required: true
+    #     type: choice
+    #     default: 'false'
+    #     options:
+    #       - 'true'
+    #       - 'false'
+    #   google-play-upload:
+    #     description: 'Is Google Play upload required?'
+    #     required: true
+    #     type: choice
+    #     default: 'false'
+    #     options:
+    #       - 'true'
+    #       - 'false'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -82,16 +82,19 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
-      - name: Convert selected Store to lowercase
-        id: flavour-lower-case
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.event.inputs.flavour-store }}
-      - name: Run a one-line script
-        id: variant-apks
-        run: |
-          echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ github.event.inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ github.event.inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ github.event.inputs.process-debug }} }" >> $GITHUB_OUTPUT
+      # - name: Convert selected Store to lowercase
+      #   id: flavour-lower-case
+      #   uses: ASzc/change-string-case-action@v6
+      #   with:
+      #     string: ${{ github.event.inputs.flavour-store }}
+      # - name: Run a one-line script
+      #   id: variant-apks
+      #   run: |
+      #     echo "variant_apk={ ${{ steps.flavour-lower-case.outputs.lowercase }}Release=${{ github.event.inputs.process-production }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Beta=${{ github.event.inputs.process-beta }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ProdDebug=${{ github.event.inputs.process-production-debug }}, ${{ steps.flavour-lower-case.outputs.lowercase }}ManualRelease=${{ github.event.inputs.process-manual-release }}, ${{ steps.flavour-lower-case.outputs.lowercase }}Debug=${{ github.event.inputs.process-debug }} }" >> $GITHUB_OUTPUT
 
-      - name: Print the command
-        run: echo "${{ steps.variant-apks.outputs.variant_apk }}"
+      # - name: Print the command
+      #   run: echo "${{ steps.variant-apks.outputs.variant_apk }}"
+
+      - name: Print some Output
+        run: echo "Hey There"
 
