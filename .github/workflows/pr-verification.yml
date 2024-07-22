@@ -10,7 +10,7 @@ on:
   schedule:
     - cron: '30 2,20 * * *'
 
-concurrency: 
+concurrency:
   group: ${{ github.head_ref == '' && github.ref || github.head_ref }}
   cancel-in-progress: true
 
@@ -29,19 +29,20 @@ jobs:
         id: run-job
         run: |
           if [ "${{ matrix.job }}" == "non-emulator-verification" ]; then
-            ./scripts/run-non-emulator-verification.sh
+            gh workflow run pr-non-emulator-verification.yml
           elif [ "${{ matrix.job }}" == "emulator-verification" ]; then
-            ./scripts/run-emulator-verification.sh
+            gh workflow run pr-emulator-verification.yml
           fi
         continue-on-error: true
 
       - name: Save result
+        id: save-result
         run: echo "${{ matrix.job }}_result=${{ steps.run-job.outcome }}" >> $GITHUB_ENV
 
   check-results:
     name: Check Results
     runs-on: ubuntu-latest
-    needs: [matrix-verification]
+    needs: matrix-verification
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
