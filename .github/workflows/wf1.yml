@@ -1,0 +1,24 @@
+name: Workflow 1
+
+on:
+  workflow_call:
+
+jobs:
+  wf1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "I'm workflow 1"
+
+      - name: Workflow repo
+        run: echo ${{ github.repository }}
+
+      - run: exit 1
+
+      - name: Using GH cli
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: gh run cancel ${{ github.run_id }}
