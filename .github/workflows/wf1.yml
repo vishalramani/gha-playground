@@ -14,7 +14,7 @@ jobs:
       - name: Workflow repo
         run: echo ${{ github.repository }}
 
-      - run: exit 0
+      - run: exit 1
 
       - name: Using GH cli
         if: failure()
