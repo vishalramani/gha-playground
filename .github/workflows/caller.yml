@@ -19,12 +19,23 @@ jobs:
     uses: ./.github/workflows/wf2.yml
     secrets: inherit
 
-  checker:
+  check-failed-jobs:
     needs: [wf1, wf2]
     if: always()
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
-      - run: gh run view ${{ github.run_id }} --json jobs -q '.jobs[] | select(.conclusion=="failure")
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Check Failed Jobs
+        run: |
+          FAILED_JOBS=$(gh run view ${{ github.run_id }} --json jobs --jq '[.jobs[] | select(.conclusion=="failure") | {name: .name, conclusion: .conclusion}]')
+          ESCAPED_FAILED_JOBS=$(echo "$FAILED_JOBS" | tr -d '\n' | jq -aRs .)
+          if [[ "$ESCAPED_FAILED_JOBS" != "\"[]\"" ]]; then
+            echo "There are failed jobs: $ESCAPED_FAILED_JOBS"
+            exit 1
+          else
+            echo "No failed jobs!"
+          fi
