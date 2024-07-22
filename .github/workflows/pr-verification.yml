@@ -51,6 +51,7 @@ jobs:
 
       - name: Check if any job failed
         run: |
+          echo ${{ env.non-emulator-verification_result }};
           if [ "${{ env.non-emulator-verification_result }}" != "success" ] || [ "${{ env.emulator-verification_result }}" != "success" ]; then
             echo "One of the jobs failed"
             exit 1
