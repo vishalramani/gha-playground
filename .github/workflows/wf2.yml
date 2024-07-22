@@ -1,0 +1,28 @@
+name: Workflow 2
+
+on:
+  workflow_call:
+
+jobs:
+  wf1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - run: echo "I'm workflow 2"
+
+      - name: Workflow repo
+        run: echo ${{ github.repository }}
+
+      - name: To sleep
+        run: sleep 10
+
+      - uses: vishnudxb/cancel-workflow@v1.2
+        if: failure()
+        with:
+          repo: ${{ github.repository }}
+          workflow_id: ${{ github.run_id }}
+          access_token: ${{ github.token }}
+
+      - name: I always run
+        if: always()
+        run: echo "I told you I always run"
