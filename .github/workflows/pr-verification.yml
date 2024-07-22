@@ -26,11 +26,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run ${{ matrix.job }}
-        id: run-job
-        continue-on-error: true
-
-      - name: Run ${{ matrix.job }}
         uses: ./.github/workflows/matrix.yml
+        continue-on-error: true
         with:
           wf-name: ${{ matrix.job }}
 
