@@ -23,7 +23,7 @@ jobs:
       steps:
         - name: Debug echo
           run: |
-            sleep 10000
+            sleep 10
             echo "Hello from Emu"
         - name: Debug 2
           run: |
