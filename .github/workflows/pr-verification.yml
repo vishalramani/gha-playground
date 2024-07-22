@@ -21,19 +21,26 @@ jobs:
     steps:
       - name: Run Verification Job
         uses: ./.github/workflows/pr-${{ matrix.job }}-verification.yml
-        secrets: inherit
+
+      - name: Set job status
+        id: set-status
+        run: |
+          echo "::set-output name=${{ matrix.job }}_status::${{ job.status }}"
 
   monitor:
     name: Monitor Jobs
     runs-on: ubuntu-latest
-    needs: [verification]
+    needs: verification
     steps:
       - name: Check Results
         run: |
-          if [ "${{ needs.verification.outputs['non-emulator'] }}" == "failure" ]; then
+          non_emulator_status="${{ needs.verification.outputs.non-emulator_status }}"
+          emulator_status="${{ needs.verification.outputs.emulator_status }}"
+          
+          if [ "$non_emulator_status" == "failure" ]; then
             echo "Non Emulator Verification failed. Canceling Emulator Verification..."
             gh run cancel --job-name emulator --repo ${{ github.repository }}
-          elif [ "${{ needs.verification.outputs['emulator'] }}" == "failure" ]; then
+          elif [ "$emulator_status" == "failure" ]; then
             echo "Emulator Verification failed. Canceling Non Emulator Verification..."
             gh run cancel --job-name non-emulator --repo ${{ github.repository }}
           fi
