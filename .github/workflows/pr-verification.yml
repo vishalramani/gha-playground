@@ -25,17 +25,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run ${{ matrix.job }}
+      - name: Run ${{ matrix.job }} job
         run: |
           if [ "${{ matrix.job }}" == "non-emulator-verification" ]; then
-            ./.github/workflows/pr-non-emulator-verification.yml
+            ./scripts/run-non-emulator-verification.sh
           elif [ "${{ matrix.job }}" == "emulator-verification" ]; then
-            ./.github/workflows/pr-emulator-verification.yml
+            ./scripts/run-emulator-verification.sh
           fi
         continue-on-error: true
+
       - name: Save ${{ matrix.job }} result
-        id: ${{ matrix.job }}-result
-        run: echo "::set-output name=result::${{ job.status }}"
+        id: save-${{ matrix.job }}-result
+        run: echo "${{ matrix.job }}-result=${{ steps.${{ matrix.job }}-result.outcome }}" >> $GITHUB_ENV
 
   check-results:
     name: Check Results
@@ -44,7 +45,7 @@ jobs:
     steps:
       - name: Fail if any job failed
         run: |
-          if [[ "${{ needs.matrix-verification.outputs.non-emulator-verification-result.result }}" != "success" || "${{ needs.matrix-verification.outputs.emulator-verification-result.result }}" != "success" ]]; then
+          if [[ "${{ env.non-emulator-verification-result }}" != "success" || "${{ env.emulator-verification-result }}" != "success" ]]; then
             echo "One of the jobs failed"
             exit 1
           fi
