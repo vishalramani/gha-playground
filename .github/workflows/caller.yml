@@ -27,4 +27,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
+      - run: |
+          job1 status: ${{ job.wf1.status }}
+          job2 status: ${{ job.wf2.status }}
       - run: gh run view ${{ github.run_id }} --json jobs -q '.jobs[] | select(.conclusion=="failure")
