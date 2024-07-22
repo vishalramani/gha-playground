@@ -27,15 +27,12 @@ jobs:
 
       - name: Run ${{ matrix.job }}
         id: run-job
-        run: |
-          if [ "${{ matrix.job }}" == "non-emulator-verification" ]; then
-            echo "Running non-emulator verification"
-            # Add commands or steps for non-emulator verification here
-          elif [ "${{ matrix.job }}" == "emulator-verification" ]; then
-            echo "Running emulator verification"
-            # Add commands or steps for emulator verification here
-          fi
         continue-on-error: true
+
+      - name: Run ${{ matrix.job }}
+        uses: ./.github/workflows/matrix.yml
+        with:
+          wf-name: ${{ matrix.job }}
 
       - name: Save result
         id: save-result
