@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  wf1:
+  wf2:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -14,14 +14,14 @@ jobs:
         run: echo ${{ github.repository }}
 
       - name: To sleep
-        run: sleep 10
+        run: sleep 5
 
-      - uses: vishnudxb/cancel-workflow@v1.2
+      - name: Using GH cli
         if: failure()
-        with:
-          repo: ${{ github.repository }}
-          workflow_id: ${{ github.run_id }}
-          access_token: ${{ github.token }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: gh run cancel ${{ github.run_id }}
 
       - name: I always run
         if: always()
