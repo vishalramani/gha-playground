@@ -10,43 +10,17 @@ on:
   schedule:
     - cron: '30 2,20 * * *'
 
-concurrency:
+concurrency: 
   group: ${{ github.head_ref == '' && github.ref || github.head_ref }}
   cancel-in-progress: true
 
 jobs:
-  matrix-verification:
-    name: Matrix Verification
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        job: [non-emulator-verification, emulator-verification]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  non-emulator-verification:
+    name: Non Emulator Verification
+    uses: ./.github/workflows/pr-non-emulator-verification.yml
+    secrets: inherit
 
-      - name: Run ${{ matrix.job }}
-        uses: ./.github/workflows/matrix.yml
-        continue-on-error: true
-        with:
-          wf-name: ${{ matrix.job }}
-
-      - name: Save result
-        id: save-result
-        run: echo "${{ matrix.job }}_result=${{ steps.run-job.outcome }}" >> $GITHUB_ENV
-
-  check-results:
-    name: Check Results
-    runs-on: ubuntu-latest
-    needs: matrix-verification
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Check if any job failed
-        run: |
-          echo ${{ env.non-emulator-verification_result }};
-          if [ "${{ env.non-emulator-verification_result }}" != "success" ] || [ "${{ env.emulator-verification_result }}" != "success" ]; then
-            echo "One of the jobs failed"
-            exit 1
-          fi
+  emulator-verification:
+    name: Emulator Verification
+    uses: ./.github/workflows/pr-emulator-verification.yml
+    secrets: inherit
