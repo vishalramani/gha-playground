@@ -23,5 +23,16 @@ jobs:
       steps:
         - name: Debug echo
           run: |
-            sleep 100
+            sleep 10000
             echo "Hello from Emu"
+        - name: Debug 2
+          run: |
+            echo "Hello from the 2nd step"
+            
+        - name: Debug 3
+          run: |
+            echo "Hello from the 3rd step"
+
+        - name: Debug 4
+          run: |
+            echo "Hello from the 4th step"
