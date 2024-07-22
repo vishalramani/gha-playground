@@ -1,0 +1,20 @@
+name: Matrix WF
+on:
+  workflow_call:
+    inputs:
+      wf-name:
+        description: 'The WF name'
+        required: false
+        type: string
+jobs:
+  non-emulator-verification:
+    name: Non Emulator Verification
+    if: inputs.wf-name == 'pr-non-emulator-verification'
+    uses: ./.github/workflows/pr-non-emulator-verification.yml
+    secrets: inherit
+
+  emulator-verification:
+    name: Emulator Verification
+    if: inputs.wf-name == 'pr-emulator-verification'
+    uses: ./.github/workflows/pr-emulator-verification.yml
+    secrets: inherit
