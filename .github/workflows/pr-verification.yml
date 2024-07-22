@@ -23,7 +23,7 @@ jobs:
         job: [non-emulator-verification, emulator-verification]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Run ${{ matrix.job }}
         uses: ./.github/workflows/matrix.yml
