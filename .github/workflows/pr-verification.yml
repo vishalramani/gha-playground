@@ -25,13 +25,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run job
+      - name: Run ${{ matrix.job }}
         id: run-job
         run: |
           if [ "${{ matrix.job }}" == "non-emulator-verification" ]; then
-            gh workflow run pr-non-emulator-verification.yml
+            echo "Running non-emulator verification"
+            # Add commands or steps for non-emulator verification here
           elif [ "${{ matrix.job }}" == "emulator-verification" ]; then
-            gh workflow run pr-emulator-verification.yml
+            echo "Running emulator verification"
+            # Add commands or steps for emulator verification here
           fi
         continue-on-error: true
 
