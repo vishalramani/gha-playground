@@ -1,0 +1,30 @@
+name: PR Verification
+on:
+  push:
+    branches:
+      - main
+
+# concurrency:
+#   group: ${{ github.head_ref == '' && github.ref || github.head_ref }}
+#   cancel-in-progress: true
+
+jobs:
+  wf1:
+    name: WF1
+    uses: ./.github/workflows/wf1.yml
+    secrets: inherit
+
+  wf2:
+    name: WF2
+    uses: ./.github/workflows/wf2.yml
+    secrets: inherit
+
+  checker:
+    needs: [wf1, wf2]
+    if: always()
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh run view ${{ github.run_id }} --json jobs -q '.jobs[] | select(.conclusion=="failure") | {name: .name, conclusion: .conclusion}'
