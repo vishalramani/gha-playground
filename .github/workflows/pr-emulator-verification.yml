@@ -1,0 +1,26 @@
+name: PR-emulator-verification
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'The tag of the image to use for the container'
+        required: true
+        type: string
+        default: latest
+
+  workflow_call:
+    inputs:
+      image-tag:
+        description: 'The tag of the image to use for the container'
+        required: false
+        type: string
+        default: latest
+
+jobs:
+  debug:
+      name: Debug
+      runs-on: ubuntu-latest
+      steps:
+        - name: Debug echo
+          run: |
+            echo "Hello from Emu"
