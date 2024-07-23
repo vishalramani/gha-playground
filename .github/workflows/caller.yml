@@ -47,6 +47,7 @@ jobs:
           fi
 
       - name: Print output
+        if: always()
         run: |
           echo ${{ steps.check-failed-jobs.outputs.failed_jobs }}
 
