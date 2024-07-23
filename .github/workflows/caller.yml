@@ -43,14 +43,15 @@ jobs:
             echo "There are failed jobs:"
             
             # Parse and print each failed job
-            echo "message=$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' >> $GITHUB_OUTPUT
+            MESSAGE=$(echo "$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' | tr '\n' ' ')
+            echo "failed_jobs=$MESSAGE" >> $GITHUB_OUTPUT
             
             exit 1
           else
-            echo "message=No failed jobs!" >> $GITHUB_OUTPUT
+            echo "failed_jobs=No failed jobs!" >> $GITHUB_OUTPUT
           fi
 
       - name: Print output
         run: |
-          echo ${{ steps.check-failed-jobs.outputs.message }}
+          echo ${{ steps.check-failed-jobs.outputs.failed_jobs }}
 
