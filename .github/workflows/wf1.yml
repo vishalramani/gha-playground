@@ -16,6 +16,12 @@ jobs:
 
       - run: exit 1
 
+      - name: Install GitHub CLI
+        if: failure()
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+          
       - name: Using GH cli
         if: failure()
         env:
