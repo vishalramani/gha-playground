@@ -21,6 +21,7 @@ jobs:
     secrets: inherit
 
   check-failed-jobs:
+    name: Check and Notify Failed Jobs
     needs: [wf1, wf2]
     if: always()
     runs-on: ubuntu-latest
@@ -31,6 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check Failed Jobs
+        id: check-failed-jobs
         run: |
           # Fetch failed jobs
           FAILED_JOBS=$(gh run view ${{ github.run_id }} --json jobs --jq '[.jobs[] | select(.conclusion=="failure") | {name: .name, conclusion: .conclusion}]')
@@ -41,10 +43,14 @@ jobs:
             echo "There are failed jobs:"
             
             # Parse and print each failed job
-            echo "$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"'
+            echo "message=$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' >> $GITHUB_OUTPUT
             
             exit 1
           else
-            echo "No failed jobs!"
+            echo "message=No failed jobs!" >> $GITHUB_OUTPUT
           fi
+
+      - name: Print output
+        run: |
+          echo ${{ steps.check-failed-jobs.outputs.message }}
 
