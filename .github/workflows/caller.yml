@@ -37,9 +37,9 @@ jobs:
           FAILED_JOBS=$(gh run view ${{ github.run_id }} --json jobs --jq '[.jobs[] | select(.conclusion=="failure") | {name: .name, conclusion: .conclusion}]')
           ESCAPED_FAILED_JOBS=$(echo "$FAILED_JOBS" | tr -d '\n' | jq -aRs .)
           if [[ "$ESCAPED_FAILED_JOBS" != "\"[]\"" ]]; then
-            MESSAGE=There are failed jobs [❌] $(echo "$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' | tr '\n' ' ')
+            MESSAGE=$(echo "$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' | tr '\n' ' ')
             echo "There are failed jobs [❌]: $MESSAGE"
-            echo "failed_jobs=$MESSAGE" >> $GITHUB_OUTPUT
+            echo "failed_jobs=There are failed jobs [❌] : $MESSAGE" >> $GITHUB_OUTPUT
             exit 1
           else
             echo "No failed jobs!"
