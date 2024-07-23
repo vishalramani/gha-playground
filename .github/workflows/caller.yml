@@ -34,21 +34,16 @@ jobs:
       - name: Check Failed Jobs
         id: check-failed-jobs
         run: |
-          # Fetch failed jobs
           FAILED_JOBS=$(gh run view ${{ github.run_id }} --json jobs --jq '[.jobs[] | select(.conclusion=="failure") | {name: .name, conclusion: .conclusion}]')
-          
-          # Check if there are any failed jobs
           ESCAPED_FAILED_JOBS=$(echo "$FAILED_JOBS" | tr -d '\n' | jq -aRs .)
           if [[ "$ESCAPED_FAILED_JOBS" != "\"[]\"" ]]; then
-            echo "There are failed jobs:"
-            
-            # Parse and print each failed job
             MESSAGE=$(echo "$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' | tr '\n' ' ')
-            echo "failed_jobs=$MESSAGE" >> $GITHUB_OUTPUT
-            
+            echo "There are failed jobs: $MESSAGE"
+            echo "::set-output name=failed_jobs::$MESSAGE"
             exit 1
           else
-            echo "failed_jobs=No failed jobs!" >> $GITHUB_OUTPUT
+            echo "No failed jobs!"
+            echo "::set-output name=failed_jobs::No failed jobs!"
           fi
 
       - name: Print output
