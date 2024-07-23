@@ -39,11 +39,11 @@ jobs:
           if [[ "$ESCAPED_FAILED_JOBS" != "\"[]\"" ]]; then
             MESSAGE=$(echo "$FAILED_JOBS" | jq -r '.[] | "\(.name): \(.conclusion)"' | tr '\n' ' ')
             echo "There are failed jobs: $MESSAGE"
-            echo "::set-output name=failed_jobs::$MESSAGE"
+            echo "failed_jobs=$MESSAGE" >> $GITHUB_OUTPUT
             exit 1
           else
             echo "No failed jobs!"
-            echo "::set-output name=failed_jobs::No failed jobs!"
+            echo "failed_jobs=No failed jobs!" >> $GITHUB_OUTPUT
           fi
 
       - name: Print output
