@@ -30,7 +30,7 @@ jobs:
         id: artifact-version
         run: |
           echo "mobversion=$(git log develop --oneline | wc -l)" >> $GITHUB_OUTPUT
-          echo ${{ vars.TIMEOUTVALUE }}
+          echo ${{ vars.TIMEOUT_VALUE }}
           echo ${{ env.timeoutValue }}
           echo "The above is timeout Value from GH vars"
 
