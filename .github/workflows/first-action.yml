@@ -33,6 +33,8 @@ jobs:
           echo ${{ vars.TIMEOUT_VALUE }}
           echo ${{ env.timeoutValue }}
           echo "The above is timeout Value from GH vars"
+          echo ${{ github.repository_owner }} (repo organization)
+          ${{ github.repository }} (repo name)
 
       - name: Count Commits
         run: |
