@@ -4,9 +4,8 @@ on:
     inputs:
       timeoutValue:
         description: 'Provide timeout minutes to cancel job'
-        required: true
-        type: number
-        default: '${{ vars.TIMEOUT_VALUE }}'
+        required: false
+        type: string
   workflow_run:
     workflows: ["First Cron Job"]
     types:
@@ -16,6 +15,7 @@ on:
 
 env:
   MOBILE_DEFAULT_VERSION: 130000
+  timeoutValue: '${{ inputs.timeoutValue || vars.TIMEOUT_VALUE }}'
 
 jobs:
   first-job:
@@ -31,6 +31,7 @@ jobs:
         run: |
           echo "mobversion=$(git log develop --oneline | wc -l)" >> $GITHUB_OUTPUT
           echo ${{ vars.TIMEOUTVALUE }}
+          echo ${{ env.timeoutValue }}
           echo "The above is timeout Value from GH vars"
 
       - name: Count Commits
