@@ -5,6 +5,8 @@ on:
     workflows: ["First Cron Job"]
     types:
       - completed
+  schedule:
+    - cron: '*/10 * * * *'
 
 env:
   MOBILE_DEFAULT_VERSION: 130000
@@ -20,7 +22,10 @@ jobs:
 
       - name: git
         id: artifact-version
-        run: echo "mobversion=$(git log develop --oneline | wc -l)" >> $GITHUB_OUTPUT
+        run: |
+          echo "mobversion=$(git log develop --oneline | wc -l)" >> $GITHUB_OUTPUT
+          echo ${{ vars.TIMEOUTVALUE }}
+          echo "The above is timeout Value from GH vars"
 
       - name: Count Commits
         run: |
