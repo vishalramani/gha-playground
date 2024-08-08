@@ -45,6 +45,7 @@ jobs:
         run: echo "Done- Bye!!"
 
   second-job:
+    needs: first-job
     runs-on: ubuntu-latest
     steps:
       - name: Print Goodbye
