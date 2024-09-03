@@ -1,20 +1,39 @@
-name: Matrix WF
-on:
-  workflow_call:
-    inputs:
-      wf-name:
-        description: 'The WF name'
-        required: false
-        type: string
-jobs:
-  non-emulator-verification:
-    name: Non Emulator Verification
-    if: inputs.wf-name == 'pr-non-emulator-verification'
-    uses: ./.github/workflows/pr-non-emulator-verification.yml
-    secrets: inherit
+name: CI - Matrix
 
-  emulator-verification:
-    name: Emulator Verification
-    if: inputs.wf-name == 'pr-emulator-verification'
-    uses: ./.github/workflows/pr-emulator-verification.yml
-    secrets: inherit
+on: [push]
+
+jobs:    
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:    
+      matrix:
+        cc: [gcc, clang]
+        curl: [openssl, gnutls, nss]
+        kerberos: [libkrb5, heimdal]
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ${{ matrix.cc }} \
+                                libcurl4-${{ matrix.curl }}-dev \
+                                ${{ matrix.kerberos }}-dev
+    - name: Display Configuration
+      run: |
+        echo "C Compiler:"
+        ${CC} --version
+        echo ""
+        echo "Curl configuration:"
+        curl-config --ssl-backends --version
+        echo ""
+        echo "Kerberos configuration:"
+        krb5-config --all
+      env:
+        CC: ${{ matrix.cc }}
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Build
+      run: ./configure && make test
