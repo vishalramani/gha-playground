@@ -20,6 +20,11 @@ on:
         required: false
         type: string
         default: latest
+      is_pr:
+        description: 'Check if this WF is PR?'
+        required: false
+        type: string
+        default: 'false'
 
 jobs:
   debug:
