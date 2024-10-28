@@ -41,12 +41,12 @@ jobs:
             echo ${{ github.event_name }}
             
         - name: Debug 3
-          if: ${{ inputs.is_pr == 'true' }}
+          if: ${{ inputs.is_pr == 'pull_request' }}
           run: |
             echo "Hello from the 3rd step"
 
         - name: Debug 4
-          if: ${{ inputs.is_pr == 'false' }}
+          if: ${{ inputs.is_pr != 'pull_request' }}
           run: |
             echo "Hello from the 4th step"
             
