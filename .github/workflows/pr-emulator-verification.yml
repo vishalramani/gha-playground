@@ -28,6 +28,7 @@ jobs:
         - name: Debug 2
           run: |
             echo "Hello from the 2nd step"
+            echo ${{ github.event_name }}
             
         - name: Debug 3
           run: |
