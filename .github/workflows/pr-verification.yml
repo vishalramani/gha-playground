@@ -25,6 +25,11 @@ jobs:
         id: set-status
         run: |
           echo "::set-output name=${{ matrix.job }}_status::${{ job.status }}"
+
+      - name: Debug 2
+        run: |
+          echo "Hello from the 2nd step"
+          echo ${{ github.event_name }}
           
   emulator-verification:
     name: Emulator Verification
