@@ -38,6 +38,8 @@ jobs:
     if: always()
     uses: ./.github/workflows/pr-emulator-verification.yml
     secrets: inherit
+    with:
+      is_pr: ${{ github.event_name == 'pull_request' || 'false }}
 
   monitor:
     name: Monitor Jobs
