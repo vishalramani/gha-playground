@@ -30,6 +30,7 @@ jobs:
         run: |
           echo "Hello from the 2nd step"
           echo ${{ github.event_name }}
+          echo "Hey There"
           
   emulator-verification:
     name: Emulator Verification
