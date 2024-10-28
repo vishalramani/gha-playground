@@ -20,14 +20,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
-      - name: Run Verification Job
-        uses: ./.github/workflows/pr-emulator-verification.yml
 
       - name: Set job status
         id: set-status
         run: |
           echo "::set-output name=${{ matrix.job }}_status::${{ job.status }}"
+          
+  emulator-verification:
+    name: Emulator Verification
+    needs: verification
+    if: always()
+    uses: ./.github/workflows/pr-emulator-verification.yml
+    secrets: inherit
 
   monitor:
     name: Monitor Jobs
