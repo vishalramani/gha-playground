@@ -16,6 +16,11 @@ jobs:
     name: Verification
     runs-on: ubuntu-latest
     steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
       - name: Run Verification Job
         uses: ./.github/workflows/pr-emulator-verification.yml
 
