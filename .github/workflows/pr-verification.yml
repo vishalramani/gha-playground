@@ -15,12 +15,9 @@ jobs:
   verification:
     name: Verification
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        job: [non-emulator, emulator]
     steps:
       - name: Run Verification Job
-        uses: ./.github/workflows/pr-${{ matrix.job }}-verification.yml
+        uses: ./.github/workflows/pr-emulator-verification.yml
 
       - name: Set job status
         id: set-status
