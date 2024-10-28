@@ -30,6 +30,7 @@ jobs:
         run: |
           echo "Hello from the 2nd step"
           echo ${{ github.event_name }}
+          echo "Hey There"
           
   emulator-verification:
     name: Emulator Verification
@@ -37,6 +38,8 @@ jobs:
     if: always()
     uses: ./.github/workflows/pr-emulator-verification.yml
     secrets: inherit
+    with:
+      is_pr: ${{ github.event_name == 'pull_request' }}
 
   monitor:
     name: Monitor Jobs
